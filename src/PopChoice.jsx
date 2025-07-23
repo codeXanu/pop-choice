@@ -22,44 +22,45 @@ function PopChoice(){
     setFunOrSerious("");
     setLoading(true);
 
-  try {
-    const response = await fetch("http://localhost:8000/api/embed/userInputs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({input: userInputs}),
-    });
+    try {
+      const response = await fetch("https://pop-choice-app-5xe4r.ondigitalocean.app/api/embed/userInputs", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({input: userInputs}),
+      });
 
-    if (!response.ok) {
-      throw new Error("Something went wrong with the embedding API.");
+      if (!response.ok) {
+        throw new Error("Something went wrong with the embedding API.");
+      }
+
+      const data = await response.json();
+
+      if (data.success) {
+
+        // console.log("✅ Embedding Success:", data);
+        // console.log(data.recommendation)
+        
+        setRecommended(data.recommendation)
+        setLoading(false)
+        
+      } else {
+        console.error("❌ Embedding failed:", data.message);
+      }
+    } catch (error) {
+      console.error("❌ Error submitting data:", error.message);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const data = await response.json();
-
-    if (data.success) {
-
-      // console.log("✅ Embedding Success:", data);
-      console.log(data.recommendation)
-      setRecommended(data.recommendation)
-      setLoading(false)
-      
-    } else {
-      console.error("❌ Embedding failed:", data.message);
-    }
-  } catch (error) {
-    console.error("❌ Error submitting data:", error.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
-const handleRestart = () => {
-  setFavoriteMovie("");
-  setNewOrClassic("");
-  setFunOrSerious("");
-  setRecommended("");
-};
+  const handleRestart = () => {
+    setFavoriteMovie("");
+    setNewOrClassic("");
+    setFunOrSerious("");
+    setRecommended("");
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200">
