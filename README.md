@@ -1,12 +1,143 @@
-# React + Vite
+# 🍿 PopChoice — AI Movie Recommendation App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PopChoice** is an interactive AI-powered movie recommendation app that uses user preferences to find the perfect film match. Built with React, Tailwind CSS, and a smart embedding-based backend, it analyzes user inputs and compares them to a curated database of movie plots and metadata.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🧠 AI-driven movie suggestions based on semantic similarity  
+- 🎬 Questions to capture mood, theme, and tone  
+- 🖼️ Clean, responsive UI with PopChoice branding  
+- 🔁 Restart option for trying new preferences  
+- ⚡ Real-time API integration with loading states  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧪 How It Works
+
+1. The user answers 3 questions:
+   - Favorite movie & why
+   - Preference: new or classic
+   - Mood: fun or serious
+2. These answers are combined into a single input and sent to:
+   ```
+   https://pop-choice-app-5xe4r.ondigitalocean.app/api/embed/userInputs
+   ```
+3. The backend uses embedding comparison to recommend the most semantically similar movie from a pre-embedded list.
+4. Recommendation is displayed with a simple restart option.
+
+---
+
+## 🗂️ Folder Structure
+
+```
+PopChoice/
+├── public/
+│   └── assets/
+│       └── PopChoice Icon.png
+├── src/
+│   ├── App.jsx
+|   ├── main.jsx
+|   ├── index.css
+│   └── PopChoice.jsx
+├── index.jsx         # Embedding data uploader (outside src)
+├── content.js        # Movie data for embeddings
+└── package.json
+```
+
+---
+
+## 🧠 Movie Dataset (Embedding Input)
+
+Movies are stored as an array of objects in `content.js`. Each entry includes:
+
+- `title`
+- `releaseYear`
+- `content` (used for embedding)
+
+Example:
+
+```js
+{
+  title: "Oppenheimer",
+  releaseYear: "2023",
+  content: "Oppenheimer (3 hr): The story of American scientist, J. Robert Oppenheimer... Rated 8.5 on IMDB"
+}
+```
+
+The `index.jsx` file handles bulk uploading of this data to your embedding backend.
+
+---
+
+## 🖥️ UI Preview
+
+The app presents a full-page, mobile-friendly card layout:
+
+- 🧾 **Input Form:** Three thoughtfully designed prompts  
+- ⚙️ **Real-time Feedback:** Loading state + transition  
+- ✅ **Recommendation View:** Bold, readable, colored result  
+
+---
+
+## 📦 Installation & Development
+
+```bash
+# Install dependencies
+npm install
+
+# Run the app in dev mode
+npm run dev
+
+# Build production version
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+---
+
+## 📸 Screenshot
+
+<img src="public/popchoice.png" width="300" />
+
+
+---
+
+## 🌐 Deployments
+
+- Vercel  
+- DigitalOcean App Platform (API)   
+
+---
+
+## 🛠️ Tech Stack
+
+| Tech        | Purpose                     |
+|-------------|-----------------------------|
+| React 19    | Frontend framework          |
+| TailwindCSS | Styling                     |
+| Vite        | Build tool                  |
+| DigitalOcean| API hosting for embeddings  |
+| Embeddings  | Movie similarity comparison |
+| Embeddings and data saving  | Supabase vector database |
+
+---
+
+## 💡 Future Improvements
+
+- 🎙️ Voice-based input  
+- 🧠 Chat-style interface option  
+- 🔍 Filter by genre / duration  
+- 🔒 Auth to track history or save recommendations  
+
+---
+
+## 👨‍💻 Author
+
+**Anuj Kumar Maurya**  
+Fullstack Developer | AI Enthusiast  
+🔗 [GitHub](https://github.com/codeXanu)
+
+---
